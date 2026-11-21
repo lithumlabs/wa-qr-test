@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WhatsApp Coexistence Test</title>
+</head>
+<body style="font-family: sans-serif; padding: 40px;">
+  <h2>Test WhatsApp Business App Coexistence</h2>
+  <button onclick="launchWhatsAppSignup()" style="padding: 12px 24px; font-size: 16px; background: #25D366; color: white; border: none; border-radius: 6px; cursor: pointer;">
+    Connect WhatsApp Business App
+  </button>
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId: 'APP_ID_HERE',
+        autoLogAppEvents: true,
+        xfbml: true,
+        version: 'v21.0'
+      });
+    };
+
+    function launchWhatsAppSignup() {
+      FB.login(function(response) {
+        console.log('Login Response:', response);
+        if (response.authResponse) {
+          alert("Success! Code: " + response.authResponse.code);
+        }
+      }, {
+        config_id: 'CONFIG_ID_HERE',
+        response_type: 'code',
+        override_default_response_type: true,
+        extras: {
+          setup: {},
+          featureType: 'whatsapp_business_app_onboarding',
+          sessionInfoVersion: '3'
+        }
+      });
+    }
+  </script>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+</body>
+</html>
